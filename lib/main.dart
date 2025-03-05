@@ -57,50 +57,51 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Widget page;
-    switch(selectedIndex){
-      case 0: page = GeneratorPage();
-              break;
-      case 1: page = Favourite();
-              break;
-      default: throw new UnimplementedError("Not Yet Implemented");
+    switch (selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        break;
+      case 1:
+        page = Favourite();
+        break;
+      default:
+        throw new UnimplementedError("Not Yet Implemented");
     }
-    return LayoutBuilder(
-      builder: (context,constraints) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  backgroundColor: Colors.white,
-                  useIndicator: true,
-                  extended: constraints.maxWidth >= 600,
-                  minWidth: 100,
-                  elevation: 40,
-                  destinations: [
-                    NavigationRailDestination(
-                        icon: Icon(Icons.home), label: Text("Home")),
-                    NavigationRailDestination(
-                        icon: Icon(Icons.favorite), label: Text("Favorite"))
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                    print("Selected value is:$value");
-                  },
-                ),
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                backgroundColor: Colors.white,
+                useIndicator: true,
+                extended: constraints.maxWidth >= 600,
+                minWidth: 100,
+                elevation: 40,
+                destinations: [
+                  NavigationRailDestination(
+                      icon: Icon(Icons.home), label: Text("Home", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700))),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.favorite), label: Text("Favorite", style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700)))
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                  print("Selected value is:$value");
+                },
               ),
-              Expanded(
-                  child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ))
-            ],
-          ),
-        );
-      }
-    );
+            ),
+            Expanded(
+                child: Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: page,
+            ))
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -121,7 +122,7 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          pair.asLowerCase,
+          "${pair.first} ${pair.second}",
           style: style,
           semanticsLabel: "${pair.first} ${pair.second}",
         ),
@@ -143,11 +144,12 @@ class GeneratorPage extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: Colors.deepOrange.shade100,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('A random awesome idea:', style: TextStyle(fontSize: 20)),
+            Text('A random awesome idea:', style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700)),
             BigCard(pair: pair),
             SizedBox(
               height: 10,
@@ -162,6 +164,7 @@ class GeneratorPage extends StatelessWidget {
                   icon: Icon(icon),
                   label: Text("Like"),
                 ),
+                SizedBox(width: 30,),
                 ElevatedButton(
                     onPressed: () {
                       appState.getNext();
