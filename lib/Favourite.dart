@@ -10,7 +10,8 @@ class Favourite extends StatelessWidget {
 
       if (appState.favor.isEmpty) {
         return Center(
-          child: Text("No Favourites Found!!!", style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700)),
+          child: Text("No Favourites Found!!!",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
         );
       }
 
@@ -18,13 +19,21 @@ class Favourite extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("You have ${appState.favor.length} Favourites", style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700)),
+            child: Text("You have ${appState.favor.length} Favourites",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
           ),
           for (var pair in appState.favor)
             ListTile(
               leading: Icon(Icons.favorite),
               title: Text(pair.asLowerCase),
-            )
+              minLeadingWidth: 10,
+              trailing: ElevatedButton(
+                  onPressed: () {
+                    appState.deleter(pair);
+                    print("deleting value is:$pair");
+                  },
+                  child: Icon(Icons.delete)),
+            ),
         ],
       );
     });
