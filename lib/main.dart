@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:namer_app/Favourite.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
+          fontFamily: AutofillHints.familyName,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
         ),
         home: MyHomePage(),
@@ -58,41 +60,46 @@ class _MyHomePageState extends State<MyHomePage> {
     switch(selectedIndex){
       case 0: page = GeneratorPage();
               break;
-      case 1: page = Placeholder();
+      case 1: page = Favourite();
               break;
       default: throw new UnimplementedError("Not Yet Implemented");
     }
-    return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-              backgroundColor: Colors.white,
-              useIndicator: true,
-              extended: false,
-              elevation: 40,
-              destinations: [
-                NavigationRailDestination(
-                    icon: Icon(Icons.home), label: Text("Home")),
-                NavigationRailDestination(
-                    icon: Icon(Icons.favorite), label: Text("Favorite"))
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-                print("Selected value is:$value");
-              },
-            ),
+    return LayoutBuilder(
+      builder: (context,constraints) {
+        return Scaffold(
+          body: Row(
+            children: [
+              SafeArea(
+                child: NavigationRail(
+                  backgroundColor: Colors.white,
+                  useIndicator: true,
+                  extended: constraints.maxWidth >= 600,
+                  minWidth: 100,
+                  elevation: 40,
+                  destinations: [
+                    NavigationRailDestination(
+                        icon: Icon(Icons.home), label: Text("Home")),
+                    NavigationRailDestination(
+                        icon: Icon(Icons.favorite), label: Text("Favorite"))
+                  ],
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                    print("Selected value is:$value");
+                  },
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
+              ))
+            ],
           ),
-          Expanded(
-              child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-            child: page,
-          ))
-        ],
-      ),
+        );
+      }
     );
   }
 }
