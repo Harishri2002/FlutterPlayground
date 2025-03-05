@@ -1,5 +1,8 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:namer_app/Cubit/CounterCubit.dart';
+import 'package:namer_app/Cubit/ThemeCubit.dart';
 import 'package:namer_app/Favourite.dart';
 import 'package:provider/provider.dart';
 
@@ -212,7 +215,7 @@ class GeneratorPage extends StatelessWidget {
                       },
                       child: Text("Randomize")),
                 ],
-              ),Spacer(flex: 2,),
+              ),Spacer(flex: 3,),
             ],
           ),
         ),
@@ -282,3 +285,4 @@ class _HistoryListViewState extends State<HistoryListView> {
     );
   }
 }
+
