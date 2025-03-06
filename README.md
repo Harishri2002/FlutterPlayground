@@ -1,16 +1,60 @@
-# namer_app
+# Flutter Basics App
 
-A new Flutter project.
+## 📌 Overview
+This Flutter app is a beginner-friendly project where I explored the fundamental concepts of Flutter development, including:
+- Widgets (Stateless & Stateful)
+- Animations
+- Cubit State Management
+- API Requests & Response Handling
+- Navigation and Routing
 
-## Getting Started
+## 📱 Features
+- Implemented various Flutter widgets for UI design.
+- Basic animations to enhance user experience.
+- State management using Cubit (from the Bloc package).
+- Fetching data from APIs and handling responses.
+- Navigation between different screens.
 
-This project is a starting point for a Flutter application.
+## 🛠 Tech Stack
+- **Flutter** (Dart)
+- **Cubit (Bloc package)** for state management
+- **Dio/HTTP** for API requests
+- **AnimatedBuilder, TweenAnimationBuilder** for animations
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Getting Started
+### Prerequisites
+- Install [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- Install [Dart](https://dart.dev/get-dart)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Harishri2002/Namer_App.git
+   cd Namer_App
+   ```
+2. Install dependencies:
+   ```sh
+   flutter pub get
+   ```
+3. Run the app:
+   ```sh
+   flutter run
+   ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📷 Screenshots
+*(Add screenshots here to showcase the app)*
+
+## 🔥 Future Improvements
+- Implement Provider as an alternative state management approach.
+- Add more complex animations.
+- Improve UI/UX design.
+
+## 📜 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+Pull requests are welcome! If you find any issues, feel free to open an issue.
+
+## 📧 Contact
+For any queries, reach out at **harishribr4@gmail.com**
+
