@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:namer_app/CounterScreen.dart';
 import 'package:namer_app/Cubit/CounterCubit.dart';
 import 'package:namer_app/Cubit/ThemeCubit.dart';
 import 'package:namer_app/Favourite.dart';
@@ -15,21 +16,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Namer App',
-        theme: ThemeData(
-          useMaterial3: true,
-          fontFamily: AutofillHints.familyName,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CounterCubit()),
+        BlocProvider(create: (_) => ThemeCubit()),
+      ],
+      child: ChangeNotifierProvider(
+        create: (context) => MyAppState(),
+        child: BlocBuilder<ThemeCubit, ThemeData>(
+          builder: (context, theme) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Namer App',
+              theme: theme,
+              home: MyHomePage(),
+            );
+          },
         ),
-        home: MyHomePage(),
       ),
     );
   }
 }
+
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
@@ -75,6 +83,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     Widget page;
@@ -85,9 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = Favourite();
         break;
+      case 2:
+        page = CounterScreen();
+        break;
       default:
-        throw new UnimplementedError("Not Yet Implemented");
+        throw UnimplementedError("Not Yet Implemented");
     }
+
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: Row(
@@ -109,22 +122,28 @@ class _MyHomePageState extends State<MyHomePage> {
                       icon: Icon(Icons.favorite),
                       label: Text("Favorite",
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700)))
+                              fontSize: 16, fontWeight: FontWeight.w700))),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.countertops),
+                      label: Text("Counter",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w700))),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
                   setState(() {
                     selectedIndex = value;
                   });
-                  print("Selected value is:$value");
+                  print("Selected value is: $value");
                 },
               ),
             ),
             Expanded(
-                child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: page,
-            ))
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
+              ),
+            ),
           ],
         ),
       );
@@ -215,7 +234,10 @@ class GeneratorPage extends StatelessWidget {
                       },
                       child: Text("Randomize")),
                 ],
-              ),Spacer(flex: 3,),
+              ),
+              Spacer(
+                flex: 3,
+              ),
             ],
           ),
         ),
@@ -285,4 +307,3 @@ class _HistoryListViewState extends State<HistoryListView> {
     );
   }
 }
-
