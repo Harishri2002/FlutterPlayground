@@ -8,14 +8,8 @@
     Widget build(BuildContext context) {
       // TODO: implement build
       return Scaffold(
-        appBar: AppBar(
-          title: Text("Counter App"),
-          actions: [
-            IconButton(onPressed: (){
-              context.read<ThemeCubit>().toggleTheme();
-            }, icon: Icon(Icons.brightness_6))
-          ],
-        ),
+        backgroundColor: Colors.deepPurple.shade100,
+
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

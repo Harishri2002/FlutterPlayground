@@ -14,7 +14,6 @@ class Favourite extends StatelessWidget {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
         );
       }
-
       return ListView(
         children: [
           Padding(

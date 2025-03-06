@@ -5,6 +5,7 @@ import 'package:namer_app/CounterScreen.dart';
 import 'package:namer_app/Cubit/CounterCubit.dart';
 import 'package:namer_app/Cubit/ThemeCubit.dart';
 import 'package:namer_app/Favourite.dart';
+import 'package:namer_app/RandomUser.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -97,12 +98,24 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = CounterScreen();
         break;
+      case 3:
+        page = RandomUser();
+        break;
       default:
         throw UnimplementedError("Not Yet Implemented");
     }
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
+        appBar: AppBar(
+          title: Text("Random Generator"),
+          backgroundColor: Colors.deepPurple.shade400,
+          actions: [
+            IconButton(onPressed: (){
+              context.read<ThemeCubit>().toggleTheme();
+            }, icon: Icon(Icons.brightness_6))
+          ],
+        ),
         body: Row(
           children: [
             SafeArea(
@@ -126,6 +139,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   NavigationRailDestination(
                       icon: Icon(Icons.countertops),
                       label: Text("Counter",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w700))),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.verified_user),
+                      label: Text("User Gen",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700))),
                 ],
@@ -167,8 +185,6 @@ class BigCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: AnimatedSize(
           duration: Duration(milliseconds: 200),
-          // Make sure that the compound word wraps correctly when the window
-          // is too narrow.
           child: MergeSemantics(
             child: Wrap(
               children: [
@@ -203,7 +219,7 @@ class GeneratorPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.deepOrange.shade100,
+        backgroundColor: Colors.deepPurple.shade100,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
